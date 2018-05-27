@@ -6,5 +6,10 @@ use sres_emulator::rom_utils::*;
 fn main() {
     let rom_file = env::args().nth(1).expect("Specify a rom to open");
     let program = Vec::from(load_rom(rom_file));
-    println!("First insruction: {}", program[1]);
+    let header = &program[0x7fc0..0x7fd4];
+    for byte in header {
+        print!("{}", *byte as char);
+    }
+    println!();
+
 }

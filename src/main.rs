@@ -1,6 +1,7 @@
-mod rom_utils;
+extern crate sres_emulator;
 
 use std::env;
+use sres_emulator::rom_utils;
 
 #[derive(Default, Debug)]
 struct Cpu {

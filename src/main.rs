@@ -1,17 +1,21 @@
 extern crate sres_emulator;
 
 use std::env;
-use sres_emulator::rom_utils;
 use std::process;
+use std::path::Path;
+use sres_emulator::rom_utils;
 use sres_emulator::cpu;
 
 fn main() {
-    let rom_file = env::args().nth(1).unwrap_or_else(|| {
-        eprintln!("please specify a rom file");
-        process::exit(1);
-    });
+    let args: Vec<String> = env::args().collect();
 
-    let program = Vec::from(rom_utils::load_rom(rom_file)
+    if args.len() < 2 {
+        eprintln!("Please specify a rom file.");
+        process::exit(1);
+    }
+    let filename = &args[1].clone();
+
+    let program = Vec::from(rom_utils::load_rom(filename)
                             .unwrap_or_else(|err| {
                                 eprintln!("couldn't load rom file: {}", err);
                                 process::exit(1);
